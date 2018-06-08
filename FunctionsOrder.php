@@ -3,9 +3,7 @@ require_once 'BasicAuth.php';
 class FunctionsOrder 
 {
     
-    private $oAuth = '';
-
-    private function createOrder($id,$idMoipClient, $product, $category, $quantidade,$preco,$detail){
+    public function createOrder($id,$idMoipClient, $product, $category, $quantidade,$preco,$detail){
         // sobre a categoria .. https://dev.moip.com.br/v2.0/reference#categorias-de-produtos
         // https://dev.moip.com.br/v2.0/reference#criar-pedido-2
 
@@ -63,9 +61,10 @@ class FunctionsOrder
     public function getInfoOrder($orderId){
             
         $curl = curl_init();
-        $url = "https://sandbox.moip.com.br/v2/customers/$orderId";
+        $url = "https://sandbox.moip.com.br/v2/orders/$orderId";
+       // $token_Acess = getToken();    
         $oAuth = new BasicAuth();
-        
+
         curl_setopt_array($curl,array(
             CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
@@ -81,7 +80,7 @@ class FunctionsOrder
             ));
 
         $resposta = curl_exec($curl);
-        print $resposta;
+        return $resposta;
 
     }
     
